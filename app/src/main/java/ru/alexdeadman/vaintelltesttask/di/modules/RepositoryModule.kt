@@ -4,13 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.alexdeadman.vaintelltesttask.data.apiname.ApiNameLocalDataSource
-import ru.alexdeadman.vaintelltesttask.data.apiname.ApiNameRemoteDataSource
-import ru.alexdeadman.vaintelltesttask.data.apiname.ApiNameRepository
-import ru.alexdeadman.vaintelltesttask.data.apiname.retrofit.ApiNameApi
-import ru.alexdeadman.vaintelltesttask.data.apiname.retrofit.RetrofitApiNameDataSource
-import ru.alexdeadman.vaintelltesttask.data.apiname.room.ApiNameDatabase
-import ru.alexdeadman.vaintelltesttask.data.apiname.room.RoomApiNameDataSource
+import ru.alexdeadman.vaintelltesttask.data.soccers.SoccersRemoteDataSource
+import ru.alexdeadman.vaintelltesttask.data.soccers.SoccersRepository
+import ru.alexdeadman.vaintelltesttask.data.soccers.retrofit.RetrofitSoccersDataSource
+import ru.alexdeadman.vaintelltesttask.data.soccers.retrofit.SoccersApi
 import javax.inject.Singleton
 
 @Module
@@ -18,18 +15,18 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideApiNameRemoteDataSource(api: ApiNameApi): ApiNameRemoteDataSource =
-        RetrofitApiNameDataSource(api)
+    fun provideSoccersRemoteDataSource(api: SoccersApi): SoccersRemoteDataSource =
+        RetrofitSoccersDataSource(api)
+
+//    @Provides
+//    @Singleton
+//    fun provideSoccersLocalDataSource(database: SoccersDatabase): SoccersLocalDataSource =
+//        RoomSoccersDataSource(database.soccersDao())
 
     @Provides
     @Singleton
-    fun provideLocalApiNameDataSource(database: ApiNameDatabase): ApiNameLocalDataSource =
-        RoomApiNameDataSource(database.apiNameDao())
-
-    @Provides
-    @Singleton
-    fun provideApiNameRepository(
-        remote: ApiNameRemoteDataSource,
-        local: ApiNameLocalDataSource
-    ): ApiNameRepository = ApiNameRepository(remote, local)
+    fun provideSoccersRepository(
+        remote: SoccersRemoteDataSource,
+//        local: SoccersLocalDataSource
+    ): SoccersRepository = SoccersRepository(remote)
 }

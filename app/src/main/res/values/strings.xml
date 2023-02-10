@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VAIntellTestTask</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>

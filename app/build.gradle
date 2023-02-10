@@ -5,6 +5,10 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+def envPropertiesFile = rootProject.file("env.properties")
+def envProperties = new Properties()
+envProperties.load(new FileInputStream(envPropertiesFile))
+
 android {
     compileSdk 32
 
@@ -16,6 +20,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField ("String", "USERNAME", envProperties["USERNAME"])
+        buildConfigField ("String", "TOKEN", envProperties["TOKEN"])
 
         javaCompileOptions {
             annotationProcessorOptions {

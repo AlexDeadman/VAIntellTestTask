@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.alexdeadman.vaintelltesttask.data.apiname.retrofit.ApiNameApi
+import ru.alexdeadman.vaintelltesttask.data.soccers.retrofit.SoccersApi
 import javax.inject.Singleton
 
 @Module
@@ -18,6 +18,8 @@ object RemoteModule {
     @Singleton
     fun provideHttpClient(): OkHttpClient = OkHttpClient()
 
+    const val BASE_URL = "https://api.soccersapi.com/v2.2/"
+
     @Provides
     @Singleton
     fun provideRetrofit(
@@ -25,11 +27,11 @@ object RemoteModule {
         client: OkHttpClient
     ): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(gson))
-        .baseUrl("https://url/") // TODO
+        .baseUrl(BASE_URL)
         .client(client)
         .build()
 
     @Provides
     @Singleton
-    fun provideApiNameApi(retrofit: Retrofit): ApiNameApi = retrofit.create(ApiNameApi::class.java)
+    fun provideSoccersApi(retrofit: Retrofit): SoccersApi = retrofit.create(SoccersApi::class.java)
 }

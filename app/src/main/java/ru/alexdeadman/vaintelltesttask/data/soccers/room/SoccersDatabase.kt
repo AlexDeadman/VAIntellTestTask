@@ -1,4 +1,4 @@
-package ru.alexdeadman.vaintelltesttask.data.apiname.room
+package ru.alexdeadman.vaintelltesttask.data.soccers.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -8,6 +8,6 @@ import androidx.room.RoomDatabase
     version = 1,
     exportSchema = true
 )
-abstract class ApiNameDatabase : RoomDatabase() {
-    abstract fun apiNameDao(): ApiNameDao
+abstract class SoccersDatabase : RoomDatabase() {
+    abstract fun soccersDao(): SoccersDao
 }

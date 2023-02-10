@@ -1,9 +1,9 @@
-package ru.alexdeadman.vaintelltesttask.data.apiname.room
+package ru.alexdeadman.vaintelltesttask.data.soccers.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.alexdeadman.vaintelltesttask.data.apiname.room.LocalEntity.Companion.TABLE_NAME
+import ru.alexdeadman.vaintelltesttask.data.soccers.room.LocalEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class LocalEntity(
@@ -12,6 +12,6 @@ data class LocalEntity(
     val id: Int
 ) {
     companion object {
-        const val TABLE_NAME = "entity_table"
+        const val TABLE_NAME = "entity_table" // TODO temp name
     }
 }
