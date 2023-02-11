@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,6 +16,7 @@ import ru.alexdeadman.vaintelltesttask.collectOnLifecycle
 import ru.alexdeadman.vaintelltesttask.databinding.FragmentSplashBinding
 import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresState
 import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresViewModel
+
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -33,6 +36,19 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.imageView.animation =
+            RotateAnimation(
+                0f,
+                360f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f
+            ).apply {
+                duration = 3000
+                repeatCount = Animation.INFINITE
+            }
 
         livescoresViewModel.livescoresStateFlow
             .collectOnLifecycle(

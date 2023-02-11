@@ -18,5 +18,5 @@
     <fragment
         android:id="@+id/MainFragment"
         android:name="ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_livescores"/>
 </navigation>
