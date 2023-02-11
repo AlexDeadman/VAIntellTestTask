@@ -24,7 +24,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4">
+            android:columnCount="5">
 
             <ImageView
                 android:id="@+id/image_view_home"
@@ -67,8 +67,16 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="?android:textColorPrimary"
-                android:textStyle="bold"
                 tools:text="Finished" />
+
+            <ImageButton
+                android:id="@+id/image_button_notification"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_notification"
+                android:layout_gravity="center_vertical"
+                android:background="?selectableItemBackgroundBorderless" />
 
             <ImageView
                 android:layout_marginTop="5dp"
@@ -111,9 +119,18 @@
                 android:layout_marginStart="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="?android:textColorPrimary"
+                android:textColor="@android:color/holo_red_light"
                 android:textStyle="bold"
                 tools:text="90'" />
+
+            <ImageButton
+                android:id="@+id/image_button_play"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_play"
+                android:layout_gravity="center_vertical"
+                android:background="?selectableItemBackgroundBorderless" />
 
         </GridLayout>
 

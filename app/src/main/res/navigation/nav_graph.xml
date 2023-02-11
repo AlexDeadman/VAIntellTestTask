@@ -10,13 +10,22 @@
         android:name="ru.alexdeadman.vaintelltesttask.ui.splash.SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/action_SplashFragment_to_MainFragment"
-            app:destination="@id/MainFragment"
+            android:id="@+id/action_SplashFragment_to_LivescoresFragment"
+            app:destination="@id/LivescoresFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
-        android:id="@+id/MainFragment"
+        android:id="@+id/LivescoresFragment"
         android:name="ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresFragment"
-        tools:layout="@layout/fragment_livescores"/>
+        tools:layout="@layout/fragment_livescores">
+        <action
+            android:id="@+id/action_LivescoresFragment_to_WebViewFragment"
+            app:destination="@id/WebViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/WebViewFragment"
+        android:name="ru.alexdeadman.vaintelltesttask.ui.webview.WebViewFragment"
+        android:label="WebViewFragment"
+        tools:layout="@layout/fragment_web_view"/>
 </navigation>

@@ -25,7 +25,7 @@ class LivescoresViewModel @Inject constructor(
         fetchLivescores()
     }
 
-    private fun fetchLivescores() {
+    fun fetchLivescores() {
         _livescoresStateFlow.value = LivescoresState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             repository.fetchLivescores(

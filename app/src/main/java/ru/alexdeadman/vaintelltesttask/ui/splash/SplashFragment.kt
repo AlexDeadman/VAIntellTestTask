@@ -56,7 +56,7 @@ class SplashFragment : Fragment() {
                 Lifecycle.State.STARTED
             ) { state ->
                 if (state is LivescoresState.Loaded || state is LivescoresState.Error) {
-                    findNavController().navigate(R.id.action_SplashFragment_to_MainFragment)
+                    findNavController().navigate(R.id.action_SplashFragment_to_LivescoresFragment)
                 }
             }
     }

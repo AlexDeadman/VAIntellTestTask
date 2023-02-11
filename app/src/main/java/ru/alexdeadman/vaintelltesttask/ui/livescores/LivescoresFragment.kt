@@ -22,7 +22,6 @@ class LivescoresFragment : Fragment() {
     private var _binding: FragmentLivescoresBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,12 +54,19 @@ class LivescoresFragment : Fragment() {
                     is LivescoresState.Loaded -> {
                         FastAdapterDiffUtil[itemAdapter] =
                             state.result.data.map { LivescoreItem(it) }
+
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
                     is LivescoresState.Error -> {
                         showToast(R.string.unknown_error) // TODO temp
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
                 }
             }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            livescoresViewModel.fetchLivescores()
+        }
     }
 
     override fun onDestroyView() {
