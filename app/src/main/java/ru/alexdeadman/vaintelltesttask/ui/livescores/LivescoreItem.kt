@@ -1,8 +1,8 @@
 package ru.alexdeadman.vaintelltesttask.ui.livescores
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.findFragment
 import androidx.navigation.findNavController
 import coil.load
@@ -36,10 +36,13 @@ class LivescoreItem(
             listOf(
                 imageViewHome to livescoreData.teams?.home?.img,
                 imageViewAway to livescoreData.teams?.away?.img
-            ). forEach {
-                it.first.load(it.second) {
+            ).forEach { pair ->
+                pair.first.load(pair.second) {
                     crossfade(true)
-                    placeholder(R.drawable.question_mark_gradient)
+                    R.drawable.question_mark_gradient.let {
+                        placeholder(it)
+                        error(it)
+                    }
                 }
             }
 
@@ -55,23 +58,22 @@ class LivescoreItem(
                 it.first.text = it.second ?: "-"
             }
 
+            // TODO move onClick methods to fragment
+
             imageButtonNotification.setOnClickListener { view ->
                 view.findFragment<LivescoresFragment>().showToast(R.string.not_implemented)
             }
 
             imageButtonPlay.setOnClickListener { view ->
+                val query = listOf(
+                    textViewLeague,
+                    textViewHome,
+                    textViewAway
+                ).joinToString("+") { it.text }
+
                 view.findNavController().navigate(
                     R.id.action_LivescoresFragment_to_WebViewFragment,
-                    Bundle().apply {
-                        putString(
-                            QUERY_BUNDLE_KEY,
-                            listOf(
-                                textViewLeague,
-                                textViewHome,
-                                textViewAway
-                            ).joinToString("+") { it.text }
-                        )
-                    }
+                    bundleOf(QUERY_BUNDLE_KEY to query)
                 )
             }
         }

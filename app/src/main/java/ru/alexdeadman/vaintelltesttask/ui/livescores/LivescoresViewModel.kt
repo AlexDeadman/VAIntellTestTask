@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,6 +19,8 @@ class LivescoresViewModel @Inject constructor(
     private val repository: SoccersRepository
 ) : ViewModel() {
 
+    private var fetchJob: Job? = null
+
     private val _livescoresStateFlow = MutableStateFlow<LivescoresState>(LivescoresState.Default)
     val livescoresStateFlow = _livescoresStateFlow.asStateFlow()
 
@@ -27,21 +30,20 @@ class LivescoresViewModel @Inject constructor(
 
     fun fetchLivescores() {
         _livescoresStateFlow.value = LivescoresState.Loading
-        viewModelScope.launch(Dispatchers.IO) {
+
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch(Dispatchers.IO) {
             repository.fetchLivescores(
                 BuildConfig.USERNAME,
                 BuildConfig.TOKEN,
                 "today"
             ).catch {
                 _livescoresStateFlow.value = LivescoresState.Error(it)
-
-                Log.e(TAG, it.toString())
+                if (BuildConfig.DEBUG) Log.e(TAG, it.toString())
             }.collect {
                 _livescoresStateFlow.value =
                     if (it.data.isEmpty()) LivescoresState.Empty
                     else LivescoresState.Loaded(it)
-
-                Log.d(TAG, it.toString())
             }
         }
     }
