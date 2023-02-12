@@ -14,7 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.alexdeadman.vaintelltesttask.R
 import ru.alexdeadman.vaintelltesttask.collectOnLifecycle
 import ru.alexdeadman.vaintelltesttask.databinding.FragmentSplashBinding
-import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresState
+import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresState.Default
+import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresState.Loading
 import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresViewModel
 
 
@@ -54,8 +55,8 @@ class SplashFragment : Fragment() {
             .collectOnLifecycle(
                 viewLifecycleOwner,
                 Lifecycle.State.STARTED
-            ) { state ->
-                if (state is LivescoresState.Loaded || state is LivescoresState.Error) {
+            ) { livescoresState ->
+                if (livescoresState !is Default && livescoresState !is Loading) {
                     findNavController().navigate(R.id.action_SplashFragment_to_LivescoresFragment)
                 }
             }

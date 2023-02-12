@@ -23,6 +23,7 @@ android {
 
         buildConfigField ("String", "USERNAME", envProperties["USERNAME"])
         buildConfigField ("String", "TOKEN", envProperties["TOKEN"])
+        buildConfigField ("String", "ONESIGNAL_APP_ID", envProperties["ONESIGNAL_APP_ID"])
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -87,6 +88,9 @@ dependencies {
 
     // Coil
     implementation 'io.coil-kt:coil:2.2.2'
+
+    // OneSignal
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

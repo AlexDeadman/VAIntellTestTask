@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import ru.alexdeadman.vaintelltesttask.databinding.FragmentWebViewBinding
@@ -27,7 +28,7 @@ class WebViewFragment : Fragment() {
         val webView = binding.root
 
         webView.apply {
-            webViewClient = CustomWebViewClient()
+            webViewClient = WebViewClient()
             settings.javaScriptEnabled = true // TODO XSS filter required
 
             val query = requireArguments().getString(LivescoreItem.QUERY_BUNDLE_KEY)

@@ -34,9 +34,13 @@ class LivescoresViewModel @Inject constructor(
                 "today"
             ).catch {
                 _livescoresStateFlow.value = LivescoresState.Error(it)
+
                 Log.e(TAG, it.toString())
             }.collect {
-                _livescoresStateFlow.value = LivescoresState.Loaded(it)
+                _livescoresStateFlow.value =
+                    if (it.data.isEmpty()) LivescoresState.Empty
+                    else LivescoresState.Loaded(it)
+
                 Log.d(TAG, it.toString())
             }
         }

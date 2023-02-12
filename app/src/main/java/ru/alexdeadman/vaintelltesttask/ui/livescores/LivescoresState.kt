@@ -5,6 +5,7 @@ import ru.alexdeadman.vaintelltesttask.data.soccers.retrofit.livescores.Livescor
 sealed class LivescoresState {
     object Default : LivescoresState()
     object Loading: LivescoresState()
+    object Empty: LivescoresState()
     class Loaded (val result: Livescores): LivescoresState()
     class Error (val throwable: Throwable) : LivescoresState()
 }

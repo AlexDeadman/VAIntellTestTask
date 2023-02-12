@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.alexdeadman.vaintelltesttask.R
 import ru.alexdeadman.vaintelltesttask.collectOnLifecycle
 import ru.alexdeadman.vaintelltesttask.databinding.FragmentLivescoresBinding
-import ru.alexdeadman.vaintelltesttask.showToast
+import ru.alexdeadman.vaintelltesttask.ui.livescores.LivescoresState.*
 
 @AndroidEntryPoint
 class LivescoresFragment : Fragment() {
@@ -47,20 +47,25 @@ class LivescoresFragment : Fragment() {
             .collectOnLifecycle(
                 viewLifecycleOwner,
                 Lifecycle.State.STARTED
-            ) { state ->
-                when (state) {
-                    LivescoresState.Default -> {}
-                    LivescoresState.Loading -> {}
-                    is LivescoresState.Loaded -> {
-                        FastAdapterDiffUtil[itemAdapter] =
-                            state.result.data.map { LivescoreItem(it) }
+            ) { livescoresState ->
+                when (livescoresState) {
+                    Default -> {}
+                    Loading -> {}
+                    Empty -> {
+                        binding.textViewMessage.setText(R.string.list_empty)
+                    }
+                    is Loaded -> {
+                        binding.textViewMessage.text = ""
 
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        FastAdapterDiffUtil[itemAdapter] =
+                            livescoresState.result.data.map { LivescoreItem(it) }
                     }
-                    is LivescoresState.Error -> {
-                        showToast(R.string.unknown_error) // TODO temp
-                        binding.swipeRefreshLayout.isRefreshing = false
+                    is Error -> {
+                        binding.textViewMessage.setText(R.string.unknown_error)
                     }
+                }
+                if (livescoresState !is Default && livescoresState !is Loading) {
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
 
